@@ -1,0 +1,1053 @@
+fileFormatVersion: 2
+guid: eb330b0a5ee83514a8381830db4bbcc1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6457655587954766210
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_0
+  - first:
+      213: 8257072741360975794
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_1
+  - first:
+      213: 2528547607884915834
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_2
+  - first:
+      213: 7793627210063497570
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_3
+  - first:
+      213: -4312138454296442540
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_4
+  - first:
+      213: -8029699527756438731
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_5
+  - first:
+      213: -6127193348968684566
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_6
+  - first:
+      213: -7014984347306382845
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_7
+  - first:
+      213: -48178164639166305
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_8
+  - first:
+      213: 6918388052089290224
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_9
+  - first:
+      213: 3013220372870781794
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_10
+  - first:
+      213: 6373409103139025634
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_11
+  - first:
+      213: -4967025331938620674
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_12
+  - first:
+      213: 1006172230074820364
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_13
+  - first:
+      213: 8118640896690018385
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_14
+  - first:
+      213: -1273422552096374171
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_15
+  - first:
+      213: 5558855267051997274
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_16
+  - first:
+      213: 9209964562095501950
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_17
+  - first:
+      213: -6430430430385052820
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_18
+  - first:
+      213: -8461252710023351290
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_19
+  - first:
+      213: 1396537266512243643
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_20
+  - first:
+      213: 453375797880947674
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_21
+  - first:
+      213: -8712107681620807421
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_22
+  - first:
+      213: 5511184314548197457
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_23
+  - first:
+      213: 335748668147285971
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_24
+  - first:
+      213: 5016820183557140369
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_25
+  - first:
+      213: 5362203792733495522
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_26
+  - first:
+      213: -6503220462070577418
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_27
+  - first:
+      213: 529033119305380804
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_28
+  - first:
+      213: -5060323804349530935
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_29
+  - first:
+      213: -8398643823390472965
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_30
+  - first:
+      213: 8628784699908255554
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_31
+  - first:
+      213: -5008031251311309191
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_32
+  - first:
+      213: 8165631298777147132
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_33
+  - first:
+      213: -4208400616932915483
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_34
+  - first:
+      213: 2126637184828704408
+    second: hermes_sprites_by_cosuki2ver_3_d9ahjpl_35
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 180
+        width: 33
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7ec326f47cc166a0800000000000000
+      internalID: -6457655587954766210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_1
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 181
+        width: 32
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bfb16119e3079270800000000000000
+      internalID: 8257072741360975794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_2
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 181
+        width: 35
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a74e4ad07a4371320800000000000000
+      internalID: 2528547607884915834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_3
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 128
+        width: 33
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26947a7b7a6882c60800000000000000
+      internalID: 7793627210063497570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_4
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 181
+        width: 32
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 459cb592ce43824c0800000000000000
+      internalID: -4312138454296442540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_5
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 180
+        width: 34
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 533a4fa92d6c09090800000000000000
+      internalID: -8029699527756438731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_6
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 181
+        width: 32
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae3e594cc16d7faa0800000000000000
+      internalID: -6127193348968684566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_7
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 181
+        width: 34
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30aa0e137e4c5ae90800000000000000
+      internalID: -7014984347306382845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_8
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 181
+        width: 32
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9090cae636d45ff0800000000000000
+      internalID: -48178164639166305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_9
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 180
+        width: 34
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fdb617374d030060800000000000000
+      internalID: 6918388052089290224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_10
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 127
+        width: 29
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26bdee2e6fb11d920800000000000000
+      internalID: 3013220372870781794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_11
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 128
+        width: 29
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e2b7d0cfc5e27850800000000000000
+      internalID: 6373409103139025634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_12
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 127
+        width: 29
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efa8e6be6c4911bb0800000000000000
+      internalID: -4967025331938620674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_13
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 128
+        width: 29
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c07e874ff44a6fd00800000000000000
+      internalID: 1006172230074820364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_14
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 127
+        width: 34
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 158da2291e43ba070800000000000000
+      internalID: 8118640896690018385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_15
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 128
+        width: 34
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 562035d8fe4e35ee0800000000000000
+      internalID: -1273422552096374171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_16
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 128
+        width: 42
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a58817ec965052d40800000000000000
+      internalID: 5558855267051997274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_17
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 128
+        width: 34
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7273a509fd50df70800000000000000
+      internalID: 9209964562095501950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_18
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 77
+        width: 34
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c63690ce79582c6a0800000000000000
+      internalID: -6430430430385052820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_19
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 78
+        width: 32
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6043f386d77939a80800000000000000
+      internalID: -8461252710023351290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_20
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 78
+        width: 34
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbbae06ae3f716310800000000000000
+      internalID: 1396537266512243643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_21
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 78
+        width: 32
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad30476d2e6ba4600800000000000000
+      internalID: 453375797880947674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_22
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 77
+        width: 34
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3013a08e830681780800000000000000
+      internalID: -8712107681620807421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_23
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 78
+        width: 31
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15899504fe8ab7c40800000000000000
+      internalID: 5511184314548197457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_24
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 78
+        width: 35
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3dfbab282a1d8a400800000000000000
+      internalID: 335748668147285971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_25
+      rect:
+        serializedVersion: 2
+        x: 254
+        y: 25
+        width: 30
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19feeee60635f9540800000000000000
+      internalID: 5016820183557140369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_26
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 78
+        width: 32
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e0e12770ff5a6a40800000000000000
+      internalID: 5362203792733495522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_27
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 77
+        width: 34
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f64b3ef17befb5a0800000000000000
+      internalID: -6503220462070577418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_28
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 25
+        width: 33
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c33d9ea1d0875700800000000000000
+      internalID: 529033119305380804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_29
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 25
+        width: 40
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ccfa498f4e16c9b0800000000000000
+      internalID: -5060323804349530935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_30
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 25
+        width: 33
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf448c7c0f5027b80800000000000000
+      internalID: -8398643823390472965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_31
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 24
+        width: 29
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24f6b51a7f99fb770800000000000000
+      internalID: 8628784699908255554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_32
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 25
+        width: 29
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97ec8815c16ef7ab0800000000000000
+      internalID: -5008031251311309191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_33
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 24
+        width: 29
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf66c622766225170800000000000000
+      internalID: 8165631298777147132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_34
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 25
+        width: 29
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e6cd2b9fe1c895c0800000000000000
+      internalID: -4208400616932915483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hermes_sprites_by_cosuki2ver_3_d9ahjpl_35
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 24
+        width: 29
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8960adf8045538d10800000000000000
+      internalID: 2126637184828704408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_0: -6457655587954766210
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_1: 8257072741360975794
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_10: 3013220372870781794
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_11: 6373409103139025634
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_12: -4967025331938620674
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_13: 1006172230074820364
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_14: 8118640896690018385
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_15: -1273422552096374171
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_16: 5558855267051997274
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_17: 9209964562095501950
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_18: -6430430430385052820
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_19: -8461252710023351290
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_2: 2528547607884915834
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_20: 1396537266512243643
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_21: 453375797880947674
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_22: -8712107681620807421
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_23: 5511184314548197457
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_24: 335748668147285971
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_25: 5016820183557140369
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_26: 5362203792733495522
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_27: -6503220462070577418
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_28: 529033119305380804
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_29: -5060323804349530935
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_3: 7793627210063497570
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_30: -8398643823390472965
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_31: 8628784699908255554
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_32: -5008031251311309191
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_33: 8165631298777147132
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_34: -4208400616932915483
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_35: 2126637184828704408
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_4: -4312138454296442540
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_5: -8029699527756438731
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_6: -6127193348968684566
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_7: -7014984347306382845
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_8: -48178164639166305
+      hermes_sprites_by_cosuki2ver_3_d9ahjpl_9: 6918388052089290224
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
