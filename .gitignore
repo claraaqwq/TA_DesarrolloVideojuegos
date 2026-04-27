@@ -5,3 +5,7 @@
 [Bb]uilds/
 [Ll]ogs/
 UserSettings/
+*.csproj
+*.sln
+*.slnx
+*.userprefs
