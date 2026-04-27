@@ -30,7 +30,7 @@ public class PlayerAttack : MonoBehaviour
 
         if (animator != null)
         {
-            animator.SetBool("IsAttacking", true);
+            animator.SetBool("Attack", true);
         }
 
         // Espera pequeña para que coincida con el golpe de la animación
@@ -42,7 +42,7 @@ public class PlayerAttack : MonoBehaviour
 
         if (animator != null)
         {
-            animator.SetBool("IsAttacking", false);
+            animator.SetBool("Attack", false);
         }
 
         canAttack = true;
