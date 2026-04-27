@@ -1804,8 +1804,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
   FollowSpeed: 2
   Target: {fileID: 1669748043}
-  minPosition: {x: -3.22, y: 0}
-  maxPosition: {x: 83, y: 0}
+  minPosition: {x: 0, y: 0}
+  maxPosition: {x: 0, y: 0}
   shakeDuration: 0
   shakeAmount: 0.1
   decreaseFactor: 1
@@ -2788,6 +2788,7 @@ GameObject:
   - component: {fileID: 1669748042}
   - component: {fileID: 1669748044}
   - component: {fileID: 1669748047}
+  - component: {fileID: 1669748049}
   m_Layer: 0
   m_Name: Player-Hermes
   m_TagString: Untagged
@@ -2864,7 +2865,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.33, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -2926,7 +2927,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.33, y: 0.5}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 0.33, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -3038,6 +3039,26 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1669748049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669748040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b938425b6b6d98b44ad8581b9ec0a71b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
+  damage: 4
+  attackRange: 0.9
+  attackPoint: {fileID: 1700149837}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  attackCooldown: 0.25
+  animator: {fileID: 1669748048}
 --- !u!1 &1671841622
 GameObject:
   m_ObjectHideFlags: 0
