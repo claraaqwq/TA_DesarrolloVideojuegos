@@ -127,6 +127,7 @@ public class PlayerMovement2D : MonoBehaviour
 
     private void HacerBlink()
     {
+
         // Si no presiona izquierda o derecha, blink hacia donde esta mirando
         float direccionBlink;
 
