@@ -1,19 +1,40 @@
 using UnityEngine;
+using System.Collections;
 
 public class DamageZone : MonoBehaviour
 {
-    public int damageAmount = 1;
+    public int damage = 1;
+    public float damageCooldown = 1f;
+
+    private Coroutine damageCoroutine;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
-        {
-            PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
+        PlayerHealth player = collision.GetComponentInParent<PlayerHealth>();
 
-            if (playerHealth != null)
-            {
-                playerHealth.TakeDamage(damageAmount);
-            }
+        if (player != null && damageCoroutine == null)
+        {
+            damageCoroutine = StartCoroutine(DamageLoop(player));
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        PlayerHealth player = collision.GetComponentInParent<PlayerHealth>();
+
+        if (player != null && damageCoroutine != null)
+        {
+            StopCoroutine(damageCoroutine);
+            damageCoroutine = null;
+        }
+    }
+
+    private IEnumerator DamageLoop(PlayerHealth player)
+    {
+        while (true)
+        {
+            player.TakeDamage(damage);
+            yield return new WaitForSeconds(damageCooldown);
         }
     }
 }
