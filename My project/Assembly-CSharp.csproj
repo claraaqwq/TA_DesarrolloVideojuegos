@@ -64,6 +64,7 @@
     <Compile Include="Assets\Controllers\MetroidvaniaController\Scripts\Environment\DestructibleObject.cs" />
     <Compile Include="Assets\Scripts\PlayerHealth.cs" />
     <Compile Include="Assets\Controllers\MetroidvaniaController\Animation\Scripts\JumpStateBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerMedusaAbility.cs" />
     <Compile Include="Assets\Scripts\PlayerInput2D.cs" />
     <Compile Include="Assets\Controllers\MetroidvaniaController\Scripts\Environment\Grass.cs" />
     <Compile Include="Assets\Scripts\Enemy\HadesDangerZone.cs" />
@@ -81,6 +82,8 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
+    <Compile Include="Assets\Scripts\UI\MedusaAbilityUI.cs" />
+    <Compile Include="Assets\Scripts\MedusaRelicPickup.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuActions.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Controllers\MetroidvaniaController\Scripts\Enemies\Ally.cs" />
@@ -100,11 +103,13 @@
     <Compile Include="Assets\Controllers\MetroidvaniaController\Scripts\Player\Attack.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
+    <Compile Include="Assets\Scripts\GameProgress.cs" />
     <Compile Include="Assets\Scripts\Enemy\BossArenaTrigger.cs" />
     <Compile Include="Assets\Controllers\MetroidvaniaController\Scripts\Enemies\Enemy.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement2D.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyDropOnDeath.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />

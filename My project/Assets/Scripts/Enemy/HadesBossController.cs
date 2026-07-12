@@ -30,8 +30,13 @@ public class HadesBossController : MonoBehaviour
     [SerializeField] private Vector2 dangerZoneSize = new Vector2(1.4f, 2.5f);
 
     private EnemyHealth enemyHealth;
+    private SpriteRenderer spriteRenderer;
+    private Coroutine attackLoopCoroutine;
+    private Coroutine petrifyCoroutine;
+    private Color originalColor;
     private bool combatStarted;
     private bool defeated;
+    private bool isPetrified;
     private static Sprite projectileVisualSprite;
     private static Sprite dangerZoneVisualSprite;
 
@@ -39,6 +44,8 @@ public class HadesBossController : MonoBehaviour
     {
         enemyHealth = GetComponent<EnemyHealth>();
         enemyHealth.Died += HandleDefeat;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer != null ? spriteRenderer.color : Color.white;
 
         if (victoryPanel != null)
         {
@@ -84,17 +91,25 @@ public class HadesBossController : MonoBehaviour
 
         while (!defeated)
         {
+            if (isPetrified)
+            {
+                yield return null;
+                continue;
+            }
+
             FireProjectile();
             yield return new WaitForSeconds(projectileCooldown);
 
-            if (defeated)
+            if (defeated || isPetrified)
             {
-                yield break;
+                continue;
             }
 
             SpawnDangerZone();
             yield return new WaitForSeconds(dangerZoneCooldown);
         }
+
+        attackLoopCoroutine = null;
     }
 
     public void StartCombat()
@@ -111,13 +126,75 @@ public class HadesBossController : MonoBehaviour
             bossHealthBar.SetActive(true);
         }
 
-        StartCoroutine(AttackLoop());
+        StartAttackLoop();
         Debug.Log("Combate contra Hades iniciado.");
+    }
+
+    public void Petrify(float duration)
+    {
+        if (defeated || duration <= 0f)
+        {
+            return;
+        }
+
+        if (petrifyCoroutine != null)
+        {
+            StopCoroutine(petrifyCoroutine);
+        }
+
+        petrifyCoroutine = StartCoroutine(PetrifyRoutine(duration));
+    }
+
+    private IEnumerator PetrifyRoutine(float duration)
+    {
+        isPetrified = true;
+        StopAttackLoop();
+
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = Color.gray;
+        }
+
+        yield return new WaitForSeconds(duration);
+
+        isPetrified = false;
+        petrifyCoroutine = null;
+
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = originalColor;
+        }
+
+        if (combatStarted && !defeated)
+        {
+            StartAttackLoop();
+        }
+    }
+
+    private void StartAttackLoop()
+    {
+        if (attackLoopCoroutine != null || defeated || isPetrified)
+        {
+            return;
+        }
+
+        attackLoopCoroutine = StartCoroutine(AttackLoop());
+    }
+
+    private void StopAttackLoop()
+    {
+        if (attackLoopCoroutine == null)
+        {
+            return;
+        }
+
+        StopCoroutine(attackLoopCoroutine);
+        attackLoopCoroutine = null;
     }
 
     private void FireProjectile()
     {
-        if (player == null)
+        if (player == null || isPetrified)
         {
             return;
         }
@@ -146,7 +223,7 @@ public class HadesBossController : MonoBehaviour
 
     private void SpawnDangerZone()
     {
-        if (player == null)
+        if (player == null || isPetrified)
         {
             return;
         }
@@ -171,7 +248,18 @@ public class HadesBossController : MonoBehaviour
     private void HandleDefeat()
     {
         defeated = true;
-        StopAllCoroutines();
+        StopAttackLoop();
+        if (petrifyCoroutine != null)
+        {
+            StopCoroutine(petrifyCoroutine);
+            petrifyCoroutine = null;
+        }
+        isPetrified = false;
+
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = originalColor;
+        }
 
         Collider2D bossCollider = GetComponent<Collider2D>();
         if (bossCollider != null)

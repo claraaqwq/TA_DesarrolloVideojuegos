@@ -5470,6 +5470,7 @@ GameObject:
   - component: {fileID: 1669748047}
   - component: {fileID: 1669748049}
   - component: {fileID: 1669748050}
+  - component: {fileID: 1669748051}
   m_Layer: 0
   m_Name: Player-Hermes
   m_TagString: Player
@@ -5760,6 +5761,25 @@ MonoBehaviour:
   currentHealth: 0
   respawnPoint: {fileID: 1553940373}
   respawnDelay: 0.25
+--- !u!114 &1669748051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669748040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcb92e4adf884a2aa4a823a6b3fdf38b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMedusaAbility
+  range: 5
+  boxHeight: 2.5
+  petrifyDuration: 2
+  cooldown: 5
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &1671841622
 GameObject:
   m_ObjectHideFlags: 0
@@ -6820,6 +6840,7 @@ GameObject:
   - component: {fileID: 1906523255}
   - component: {fileID: 1906523260}
   - component: {fileID: 1906523261}
+  - component: {fileID: 1906523262}
   m_Layer: 7
   m_Name: sombra_32x32_0
   m_TagString: Enemy
@@ -7003,6 +7024,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHealth: 12
   destroyOnDeath: 1
+--- !u!114 &1906523262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906523254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ce1527f70304a64a84720387e1588ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyDropOnDeath
+  dropPrefab: {fileID: 8189424480840824915, guid: 5974d76688d80a644b1d8dc58ce9f848, type: 3}
+  spawnOffset: {x: 0, y: 0.6, z: 0}
 --- !u!1 &1928802192
 GameObject:
   m_ObjectHideFlags: 0

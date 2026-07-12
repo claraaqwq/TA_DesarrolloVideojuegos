@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 public class MenuActions : MonoBehaviour
 {
     public void Jugar(){
+        GameProgress.StartNewGame();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);//carga la siguiente escena en el orden del build settings
     }
 
