@@ -14,6 +14,7 @@ public class HadesBossController : MonoBehaviour
     [SerializeField] private GameObject victoryPanel;
     [SerializeField] private CharacterController2D playerController;
     [SerializeField] private PlayerAttack playerAttack;
+    [SerializeField] private BossArenaGate bossArenaGate;
 
     [Header("Ataque 1 - Proyectil")]
     [SerializeField] private float projectileCooldown = 2f;
@@ -47,6 +48,11 @@ public class HadesBossController : MonoBehaviour
         if (bossHealthBar != null)
         {
             bossHealthBar.SetActive(false);
+        }
+
+        if (bossArenaGate != null)
+        {
+            bossArenaGate.Open();
         }
     }
 
@@ -186,6 +192,11 @@ public class HadesBossController : MonoBehaviour
         if (victoryPanel != null)
         {
             victoryPanel.SetActive(true);
+        }
+
+        if (bossArenaGate != null)
+        {
+            bossArenaGate.Open();
         }
 
         Debug.Log("Victoria: Hades fue derrotado.");

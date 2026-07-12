@@ -4,6 +4,7 @@ using UnityEngine;
 public class BossArenaTrigger : MonoBehaviour
 {
     [SerializeField] private HadesBossController bossController;
+    [SerializeField] private BossArenaGate bossArenaGate;
 
     private bool triggered;
 
@@ -31,6 +32,11 @@ public class BossArenaTrigger : MonoBehaviour
         if (bossController != null)
         {
             bossController.StartCombat();
+        }
+
+        if (bossArenaGate != null)
+        {
+            bossArenaGate.Close();
         }
 
         gameObject.SetActive(false);
