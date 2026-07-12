@@ -1,22 +1,33 @@
 using UnityEngine;
+using System;
 
 public class EnemyHealth : MonoBehaviour
 {
     [Header("Vida")]
     [SerializeField] private int maxHealth = 12;
+    [SerializeField] private bool destroyOnDeath = true;
 
     private int currentHealth;
     private SpriteRenderer spriteRenderer;
+    private bool isDead;
+
+    public event Action<int, int> HealthChanged;
+    public event Action Died;
+
+    public int MaxHealth => maxHealth;
+    public int CurrentHealth => currentHealth;
+    public bool IsDead => isDead;
 
     private void Awake()
     {
         currentHealth = maxHealth;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        HealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
     public void TakeDamage(int damage)
     {
-        if (damage <= 0)
+        if (damage <= 0 || isDead)
         {
             return;
         }
@@ -29,6 +40,8 @@ public class EnemyHealth : MonoBehaviour
             spriteRenderer.color = Color.red;
             Invoke(nameof(ResetColor), 0.12f);
         }
+
+        HealthChanged?.Invoke(currentHealth, maxHealth);
 
         if (currentHealth <= 0)
         {
@@ -46,7 +59,13 @@ public class EnemyHealth : MonoBehaviour
 
     private void Die()
     {
+        isDead = true;
         Debug.Log($"{name} murio");
-        Destroy(gameObject);
+        Died?.Invoke();
+
+        if (destroyOnDeath)
+        {
+            Destroy(gameObject);
+        }
     }
 }
