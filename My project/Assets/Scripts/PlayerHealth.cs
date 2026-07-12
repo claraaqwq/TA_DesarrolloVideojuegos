@@ -9,17 +9,30 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("Respawn")]
     public Transform respawnPoint;
+    public float respawnDelay = 0.25f;
 
     private SpriteRenderer spriteRenderer;
+    private Rigidbody2D rb;
+    private CharacterController2D characterController;
+    private Animator animator;
+    private bool isDead;
 
     private void Start()
     {
         currentHealth = maxHealth;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
+        characterController = GetComponent<CharacterController2D>();
+        animator = GetComponent<Animator>();
     }
 
     public void TakeDamage(int damage)
     {
+        if (isDead)
+        {
+            return;
+        }
+
         currentHealth -= damage;
 
         if (currentHealth < 0)
@@ -36,12 +49,17 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Die();
+            StartCoroutine(DeathAndRespawn());
         }
     }
 
     public void Heal(int amount)
     {
+        if (isDead)
+        {
+            return;
+        }
+
         currentHealth += amount;
 
         if (currentHealth > maxHealth)
@@ -57,25 +75,57 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    private void Die()
+    private IEnumerator DeathAndRespawn()
     {
-        Debug.Log("El jugador murió");
+        isDead = true;
+        Debug.Log("El jugador murio");
+
+        if (characterController != null)
+        {
+            characterController.SetMovementEnabled(false);
+        }
+
+        if (animator != null)
+        {
+            animator.SetBool("IsDead", true);
+        }
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
+
+        yield return new WaitForSeconds(respawnDelay);
 
         if (respawnPoint != null)
         {
             transform.position = respawnPoint.position;
-            currentHealth = maxHealth;
         }
+
+        currentHealth = maxHealth;
+
+        if (animator != null)
+        {
+            animator.SetBool("IsDead", false);
+            animator.SetBool("Hit", false);
+        }
+
+        if (characterController != null)
+        {
+            characterController.SetMovementEnabled(true);
+        }
+
+        isDead = false;
     }
 
-    private System.Collections.IEnumerator DamageFeedback()
+    private IEnumerator DamageFeedback()
     {
         spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.15f);
         spriteRenderer.color = Color.white;
     }
 
-    private System.Collections.IEnumerator HealFeedback()
+    private IEnumerator HealFeedback()
     {
         spriteRenderer.color = Color.green;
         yield return new WaitForSeconds(0.15f);

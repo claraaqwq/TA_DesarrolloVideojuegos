@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
-using UnityEngine.SceneManagement;
 
 public class CharacterController2D : MonoBehaviour
 {
@@ -28,9 +27,6 @@ public class CharacterController2D : MonoBehaviour
     private bool oldWallSlidding = false;
     private float prevVelocityX = 0f;
     private bool canCheck = false;
-
-    public float life = 10f;
-    public bool invincible = false;
     private bool canMove = true;
 
     private Animator animator;
@@ -254,25 +250,22 @@ public class CharacterController2D : MonoBehaviour
 
     public void ApplyDamage(float damage, Vector3 position)
     {
-        if (!invincible)
+        PlayerHealth playerHealth = GetComponent<PlayerHealth>();
+        if (playerHealth != null)
         {
-            if (animator != null) animator.SetBool("Hit", true);
-            life -= damage;
-            Vector2 damageDir = Vector3.Normalize(transform.position - position) * 40f;
-            m_Rigidbody2D.linearVelocity = Vector2.zero;
-            m_Rigidbody2D.AddForce(damageDir * 10);
-            if (life <= 0)
-            {
-                StartCoroutine(WaitToDead());
-            }
-            else
-            {
-                StartCoroutine(Stun(0.25f));
-                StartCoroutine(MakeInvincible(1f));
-            }
+            playerHealth.TakeDamage(Mathf.CeilToInt(Mathf.Abs(damage)));
         }
     }
 
+    public void SetMovementEnabled(bool enabled)
+    {
+        canMove = enabled;
+
+        if (!enabled && m_Rigidbody2D != null)
+        {
+            m_Rigidbody2D.linearVelocity = Vector2.zero;
+        }
+    }
     IEnumerator DashCooldown()
     {
         if (animator != null) animator.SetBool("IsDashing", true);
@@ -283,28 +276,6 @@ public class CharacterController2D : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         canDash = true;
     }
-
-    IEnumerator Stun(float time)
-    {
-        canMove = false;
-        yield return new WaitForSeconds(time);
-        canMove = true;
-    }
-
-    IEnumerator MakeInvincible(float time)
-    {
-        invincible = true;
-        yield return new WaitForSeconds(time);
-        invincible = false;
-    }
-
-    IEnumerator WaitToMove(float time)
-    {
-        canMove = false;
-        yield return new WaitForSeconds(time);
-        canMove = true;
-    }
-
     IEnumerator WaitToCheck(float time)
     {
         canCheck = false;
@@ -320,23 +291,5 @@ public class CharacterController2D : MonoBehaviour
         if (animator != null) animator.SetBool("IsWallSliding", false);
         oldWallSlidding = false;
         m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
-    }
-
-    IEnumerator WaitToDead()
-    {
-        if (animator != null) animator.SetBool("IsDead", true);
-        canMove = false;
-        invincible = true;
-
-        // Comprobación para evitar errores si no tienes el script Attack todavía
-        if (GetComponent<Attack>() != null)
-        {
-            GetComponent<Attack>().enabled = false;
-        }
-
-        yield return new WaitForSeconds(0.4f);
-        m_Rigidbody2D.linearVelocity = new Vector2(0, m_Rigidbody2D.linearVelocity.y);
-        yield return new WaitForSeconds(1.1f);
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }
 }
