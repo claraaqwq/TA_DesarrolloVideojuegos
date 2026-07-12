@@ -18,6 +18,12 @@ public class HadesDangerZone : MonoBehaviour
         damageCollider.isTrigger = true;
         damageCollider.enabled = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.sortingLayerName = "Default";
+            spriteRenderer.sortingOrder = 30;
+        }
     }
 
     public void Initialize(int zoneDamage, float warningDuration, float activeDuration)

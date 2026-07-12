@@ -5,8 +5,12 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(EnemyHealth))]
 public class HadesBossController : MonoBehaviour
 {
+    private const string EffectsSortingLayer = "Default";
+    private const int EffectsSortingOrder = 30;
+
     [Header("Referencias")]
     [SerializeField] private Transform player;
+    [SerializeField] private GameObject bossHealthBar;
     [SerializeField] private GameObject victoryPanel;
     [SerializeField] private CharacterController2D playerController;
     [SerializeField] private PlayerAttack playerAttack;
@@ -25,7 +29,10 @@ public class HadesBossController : MonoBehaviour
     [SerializeField] private Vector2 dangerZoneSize = new Vector2(1.4f, 2.5f);
 
     private EnemyHealth enemyHealth;
+    private bool combatStarted;
     private bool defeated;
+    private static Sprite projectileVisualSprite;
+    private static Sprite dangerZoneVisualSprite;
 
     private void Awake()
     {
@@ -35,6 +42,11 @@ public class HadesBossController : MonoBehaviour
         if (victoryPanel != null)
         {
             victoryPanel.SetActive(false);
+        }
+
+        if (bossHealthBar != null)
+        {
+            bossHealthBar.SetActive(false);
         }
     }
 
@@ -50,8 +62,6 @@ public class HadesBossController : MonoBehaviour
                 playerAttack = playerObject.GetComponent<PlayerAttack>();
             }
         }
-
-        StartCoroutine(AttackLoop());
     }
 
     private void OnDestroy()
@@ -81,6 +91,24 @@ public class HadesBossController : MonoBehaviour
         }
     }
 
+    public void StartCombat()
+    {
+        if (combatStarted || defeated)
+        {
+            return;
+        }
+
+        combatStarted = true;
+
+        if (bossHealthBar != null)
+        {
+            bossHealthBar.SetActive(true);
+        }
+
+        StartCoroutine(AttackLoop());
+        Debug.Log("Combate contra Hades iniciado.");
+    }
+
     private void FireProjectile()
     {
         if (player == null)
@@ -89,12 +117,15 @@ public class HadesBossController : MonoBehaviour
         }
 
         GameObject projectile = new GameObject("Hades_Projectile");
-        projectile.transform.position = transform.position + Vector3.up * 0.2f;
+        projectile.transform.position = new Vector3(transform.position.x, transform.position.y + 0.2f, 0f);
+        projectile.transform.localScale = Vector3.one * 0.55f;
         projectile.layer = gameObject.layer;
 
         SpriteRenderer renderer = projectile.AddComponent<SpriteRenderer>();
+        renderer.sprite = GetProjectileVisualSprite();
         renderer.color = new Color(0.8f, 0.1f, 1f, 1f);
-        renderer.sortingOrder = 20;
+        renderer.sortingLayerName = EffectsSortingLayer;
+        renderer.sortingOrder = EffectsSortingOrder;
 
         CircleCollider2D collider = projectile.AddComponent<CircleCollider2D>();
         collider.radius = 0.25f;
@@ -116,13 +147,16 @@ public class HadesBossController : MonoBehaviour
 
         GameObject zone = new GameObject("Hades_DangerZone");
         zone.transform.position = new Vector3(player.position.x, player.position.y, 0f);
+        zone.transform.localScale = new Vector3(dangerZoneSize.x, dangerZoneSize.y, 1f);
 
         SpriteRenderer renderer = zone.AddComponent<SpriteRenderer>();
+        renderer.sprite = GetDangerZoneVisualSprite();
         renderer.color = new Color(1f, 0.85f, 0.1f, 0.45f);
-        renderer.sortingOrder = 19;
+        renderer.sortingLayerName = EffectsSortingLayer;
+        renderer.sortingOrder = EffectsSortingOrder;
 
         BoxCollider2D collider = zone.AddComponent<BoxCollider2D>();
-        collider.size = dangerZoneSize;
+        collider.size = Vector2.one;
 
         HadesDangerZone dangerZone = zone.AddComponent<HadesDangerZone>();
         dangerZone.Initialize(dangerZoneDamage, warningTime, activeTime);
@@ -165,5 +199,45 @@ public class HadesBossController : MonoBehaviour
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private static Sprite GetProjectileVisualSprite()
+    {
+        if (projectileVisualSprite != null)
+        {
+            return projectileVisualSprite;
+        }
+
+        const int size = 32;
+        Texture2D texture = new Texture2D(size, size, TextureFormat.RGBA32, false);
+        texture.name = "HadesProjectileVisual";
+
+        Vector2 center = new Vector2((size - 1) * 0.5f, (size - 1) * 0.5f);
+        float radius = size * 0.45f;
+
+        for (int y = 0; y < size; y++)
+        {
+            for (int x = 0; x < size; x++)
+            {
+                float distance = Vector2.Distance(new Vector2(x, y), center);
+                texture.SetPixel(x, y, distance <= radius ? Color.white : Color.clear);
+            }
+        }
+
+        texture.Apply();
+        projectileVisualSprite = Sprite.Create(texture, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f), size);
+        return projectileVisualSprite;
+    }
+
+    private static Sprite GetDangerZoneVisualSprite()
+    {
+        if (dangerZoneVisualSprite != null)
+        {
+            return dangerZoneVisualSprite;
+        }
+
+        Texture2D texture = Texture2D.whiteTexture;
+        dangerZoneVisualSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), 1f);
+        return dangerZoneVisualSprite;
     }
 }
