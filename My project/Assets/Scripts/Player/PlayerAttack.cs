@@ -4,10 +4,10 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     [Header("Ataque")]
-    public float damage = 4f;
-    public float attackRange = 0.9f;
-    public Transform attackPoint;
-    public LayerMask enemyLayer;
+    [SerializeField] private int damage = 4;
+    [SerializeField] private float attackRange = 0.9f;
+    [SerializeField] private Transform attackPoint;
+    [SerializeField] private LayerMask enemyLayer;
 
     [Header("Cooldown")]
     public float attackCooldown = 0.25f;
@@ -50,6 +50,12 @@ public class PlayerAttack : MonoBehaviour
 
     void DoAttackDamage()
     {
+        if (attackPoint == null)
+        {
+            Debug.LogWarning("PlayerAttack no tiene AttackPoint asignado.");
+            return;
+        }
+
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(
             attackPoint.position,
             attackRange,
@@ -58,7 +64,12 @@ public class PlayerAttack : MonoBehaviour
 
         foreach (Collider2D enemy in hitEnemies)
         {
-            enemy.SendMessage("ApplyDamage", damage, SendMessageOptions.DontRequireReceiver);
+            EnemyHealth enemyHealth = enemy.GetComponentInParent<EnemyHealth>();
+
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(damage);
+            }
         }
     }
 
