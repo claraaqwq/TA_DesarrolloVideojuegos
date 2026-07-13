@@ -14,15 +14,22 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float blinkDistance = 3f;
     [SerializeField] private float blinkCooldown = 0.5f;
     [SerializeField] private LayerMask blinkBlockLayer;
+    [SerializeField] private Sprite[] blinkEffectFrames;
+    [SerializeField] private float blinkEffectFrameRate = 30f;
 
     private Rigidbody2D rb;
 
     private float horizontalMove = 0f;
     private bool jump = false;
     private bool dash = false;
+    private bool fastFall = false;
 
     private bool canBlink = true;
     private int facingDirection = 1;
+    private float blinkCooldownEndTime;
+
+    public float BlinkCooldownDuration => blinkCooldown;
+    public float BlinkCooldownRemaining => Mathf.Max(0f, blinkCooldownEndTime - Time.time);
 
     private void Awake()
     {
@@ -63,6 +70,8 @@ public class PlayerMovement : MonoBehaviour
         {
             StartCoroutine(Blink());
         }
+
+        fastFall = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
     }
 
     public void OnFall()
@@ -83,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        controller.Move(horizontalMove * Time.fixedDeltaTime, jump, dash);
+        controller.Move(horizontalMove * Time.fixedDeltaTime, jump, dash, fastFall);
 
         jump = false;
         dash = false;
@@ -92,6 +101,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator Blink()
     {
         canBlink = false;
+        blinkCooldownEndTime = Time.time + blinkCooldown;
 
         Vector2 origin = rb.position;
         Vector2 direction = Vector2.right * facingDirection;
@@ -115,12 +125,11 @@ public class PlayerMovement : MonoBehaviour
             targetPosition = origin + direction * blinkDistance;
         }
 
+        SpriteFlipbookEffect.Play(blinkEffectFrames, origin, blinkEffectFrameRate);
+
         rb.position = targetPosition;
 
-        /*if (animator != null)
-        {
-            animator.SetTrigger("Blink");
-        }*/
+        SpriteFlipbookEffect.Play(blinkEffectFrames, targetPosition, blinkEffectFrameRate);
 
         yield return new WaitForSeconds(blinkCooldown);
 

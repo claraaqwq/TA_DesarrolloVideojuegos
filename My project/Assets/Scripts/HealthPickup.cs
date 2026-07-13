@@ -10,21 +10,20 @@ public class HealthPickup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        PlayerHealth playerHealth = collision.GetComponentInParent<PlayerHealth>();
+
+        if (playerHealth == null)
         {
-            PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
-
-            if (playerHealth != null)
-            {
-                playerHealth.Heal(healAmount);
-            }
-
-            if (pickupEffect != null)
-            {
-                Instantiate(pickupEffect, transform.position, Quaternion.identity);
-            }
-
-            Destroy(gameObject);
+            return;
         }
+
+        playerHealth.Heal(healAmount);
+
+        if (pickupEffect != null)
+        {
+            Instantiate(pickupEffect, transform.position, Quaternion.identity);
+        }
+
+        Destroy(gameObject);
     }
 }

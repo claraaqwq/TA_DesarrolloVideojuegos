@@ -13,6 +13,9 @@ public class PlayerMedusaAbility : MonoBehaviour
     private float cooldownRemaining;
     private SpriteRenderer spriteRenderer;
 
+    public float CooldownDuration => cooldown;
+    public float CooldownRemaining => cooldownRemaining;
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -28,8 +31,6 @@ public class PlayerMedusaAbility : MonoBehaviour
         {
             cooldownRemaining -= Time.deltaTime;
         }
-
-        MedusaAbilityUI.UpdateIndicator(GameProgress.MedusaUnlocked, Mathf.Max(0f, cooldownRemaining));
 
         if (Input.GetKeyDown(KeyCode.F))
         {

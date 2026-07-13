@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
@@ -7,19 +9,29 @@ public class PlayerHealth : MonoBehaviour
     public int maxHealth = 5;
     public int currentHealth;
 
+    [Header("Vidas")]
+    public int maxLives = 3;
+
     [Header("Respawn")]
     public Transform respawnPoint;
     public float respawnDelay = 0.25f;
+
+    [Header("Eventos")]
+    public UnityEvent OnGameOver;
 
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
     private CharacterController2D characterController;
     private Animator animator;
     private bool isDead;
+    private int currentLives;
+
+    public int CurrentLives => currentLives;
 
     private void Start()
     {
         currentHealth = maxHealth;
+        currentLives = maxLives;
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         characterController = GetComponent<CharacterController2D>();
@@ -49,7 +61,16 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            StartCoroutine(DeathAndRespawn());
+            currentLives--;
+
+            if (currentLives > 0)
+            {
+                StartCoroutine(DeathAndRespawn());
+            }
+            else
+            {
+                StartCoroutine(FinalDeath());
+            }
         }
     }
 
@@ -116,6 +137,41 @@ public class PlayerHealth : MonoBehaviour
         }
 
         isDead = false;
+    }
+
+    private IEnumerator FinalDeath()
+    {
+        isDead = true;
+        Debug.Log("Game Over: se acabaron las vidas.");
+
+        if (characterController != null)
+        {
+            characterController.SetMovementEnabled(false);
+        }
+
+        if (animator != null)
+        {
+            animator.SetBool("IsDead", true);
+        }
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
+
+        yield return new WaitForSeconds(respawnDelay);
+
+        OnGameOver?.Invoke();
+    }
+
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void ReturnToMenu()
+    {
+        SceneManager.LoadScene("MenuPrincipal");
     }
 
     private IEnumerator DamageFeedback()
