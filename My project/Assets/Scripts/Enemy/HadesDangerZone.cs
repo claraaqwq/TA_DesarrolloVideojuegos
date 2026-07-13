@@ -4,7 +4,6 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class HadesDangerZone : MonoBehaviour
 {
-    private static readonly Color WarningColor = new Color(0.8f, 0.18f, 1f, 0.28f);
     private static readonly Color LightningColor = new Color(0.92f, 0.72f, 1f, 1f);
 
     private int damage = 1;
@@ -28,6 +27,9 @@ public class HadesDangerZone : MonoBehaviour
         {
             spriteRenderer.sortingLayerName = "Default";
             spriteRenderer.sortingOrder = 30;
+            // El propio rayo tenue sirve como advertencia. Ocultamos el
+            // rectángulo para no cubrir el escenario con una mancha morada.
+            spriteRenderer.enabled = false;
         }
 
         CreateLightningVisuals();
@@ -54,20 +56,10 @@ public class HadesDangerZone : MonoBehaviour
 
     private IEnumerator ZoneRoutine()
     {
-        if (spriteRenderer != null)
-        {
-            spriteRenderer.color = WarningColor;
-        }
-
         yield return new WaitForSeconds(warningTime);
 
         isActive = true;
         damageCollider.enabled = true;
-
-        if (spriteRenderer != null)
-        {
-            spriteRenderer.color = new Color(0.72f, 0.05f, 1f, 0.42f);
-        }
 
         yield return new WaitForSeconds(activeTime);
         Destroy(gameObject);
@@ -85,7 +77,7 @@ public class HadesDangerZone : MonoBehaviour
             LineRenderer line = boltObject.AddComponent<LineRenderer>();
             line.useWorldSpace = true;
             line.positionCount = 12;
-            line.startWidth = i == 0 ? 0.12f : 0.06f;
+            line.startWidth = i == 0 ? 0.18f : 0.085f;
             line.endWidth = line.startWidth * 0.55f;
             line.numCornerVertices = 2;
             line.numCapVertices = 2;
