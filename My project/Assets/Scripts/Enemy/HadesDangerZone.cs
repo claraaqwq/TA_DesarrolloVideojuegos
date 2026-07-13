@@ -83,9 +83,9 @@ public class HadesDangerZone : MonoBehaviour
             boltObject.transform.SetParent(transform, false);
 
             LineRenderer line = boltObject.AddComponent<LineRenderer>();
-            line.useWorldSpace = false;
-            line.positionCount = 8;
-            line.startWidth = i == 0 ? 0.075f : 0.035f;
+            line.useWorldSpace = true;
+            line.positionCount = 12;
+            line.startWidth = i == 0 ? 0.12f : 0.06f;
             line.endWidth = line.startWidth * 0.55f;
             line.numCornerVertices = 2;
             line.numCapVertices = 2;
@@ -107,18 +107,26 @@ public class HadesDangerZone : MonoBehaviour
             return;
         }
 
+        Camera mainCamera = Camera.main;
+        float topY = mainCamera != null
+            ? mainCamera.ViewportToWorldPoint(new Vector3(0.5f, 1.08f, mainCamera.nearClipPlane)).y
+            : transform.position.y + 6f;
+        float bottomY = transform.position.y - Mathf.Abs(transform.lossyScale.y) * 0.5f;
+        float zoneWidth = Mathf.Abs(transform.lossyScale.x);
+
         for (int boltIndex = 0; boltIndex < lightningBolts.Length; boltIndex++)
         {
             LineRenderer line = lightningBolts[boltIndex];
-            float baseX = (boltIndex - 1) * 0.22f;
+            float baseX = transform.position.x + (boltIndex - 1) * zoneWidth * 0.22f;
 
             for (int pointIndex = 0; pointIndex < line.positionCount; pointIndex++)
             {
                 float progress = pointIndex / (float)(line.positionCount - 1);
                 float jitter = pointIndex == 0 || pointIndex == line.positionCount - 1
                     ? 0f
-                    : Random.Range(-0.16f, 0.16f);
-                line.SetPosition(pointIndex, new Vector3(baseX + jitter, 0.52f - progress * 1.04f, -0.02f));
+                    : Random.Range(-zoneWidth * 0.14f, zoneWidth * 0.14f);
+                float y = Mathf.Lerp(topY, bottomY, progress);
+                line.SetPosition(pointIndex, new Vector3(baseX + jitter, y, transform.position.z - 0.02f));
             }
 
             float alpha = isActive ? Random.Range(0.75f, 1f) : Random.Range(0.18f, 0.42f);
