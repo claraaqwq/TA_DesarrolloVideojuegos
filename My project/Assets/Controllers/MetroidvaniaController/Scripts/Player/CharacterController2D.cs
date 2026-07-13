@@ -10,6 +10,7 @@ public class CharacterController2D : MonoBehaviour
     [SerializeField] private LayerMask m_WhatIsGround;
     [SerializeField] private Transform m_GroundCheck;
     [SerializeField] private Transform m_WallCheck;
+    [SerializeField] private float m_FastFallMultiplier = 4.5f;
 
     const float k_GroundedRadius = .2f;
     private bool m_Grounded;
@@ -20,8 +21,14 @@ public class CharacterController2D : MonoBehaviour
 
     public bool canDoubleJump = true;
     [SerializeField] private float m_DashForce = 25f;
+    [SerializeField] private float m_DashCooldownDuration = 0.6f;
+    private const float k_DashActiveTime = 0.1f;
+    private float m_DashCooldownEndTime;
     private bool canDash = true;
     private bool isDashing = false;
+
+    public float DashCooldownDuration => m_DashCooldownDuration;
+    public float DashCooldownRemaining => Mathf.Max(0f, m_DashCooldownEndTime - Time.time);
     private bool m_IsWall = false;
     private bool isWallSliding = false;
     private bool oldWallSlidding = false;
@@ -101,7 +108,10 @@ public class CharacterController2D : MonoBehaviour
         if (limitVelOnWallJump)
         {
             if (m_Rigidbody2D.linearVelocity.y < -0.5f)
+            {
                 limitVelOnWallJump = false;
+                canMove = true;
+            }
             jumpWallDistX = (jumpWallStartX - transform.position.x) * transform.localScale.x;
             if (jumpWallDistX < -0.5f && jumpWallDistX > -1f)
             {
@@ -115,20 +125,27 @@ public class CharacterController2D : MonoBehaviour
             else if (jumpWallDistX < -2f)
             {
                 limitVelOnWallJump = false;
+                canMove = true;
                 m_Rigidbody2D.linearVelocity = new Vector2(0, m_Rigidbody2D.linearVelocity.y);
             }
             else if (jumpWallDistX > 0)
             {
                 limitVelOnWallJump = false;
+                canMove = true;
                 m_Rigidbody2D.linearVelocity = new Vector2(0, m_Rigidbody2D.linearVelocity.y);
             }
         }
     }
 
-    public void Move(float move, bool jump, bool dash)
+    public void Move(float move, bool jump, bool dash, bool fastFall)
     {
         if (canMove)
         {
+            if (!m_Grounded && fastFall && m_Rigidbody2D.linearVelocity.y < 0f)
+            {
+                m_Rigidbody2D.linearVelocity += Vector2.up * Physics2D.gravity.y * (m_FastFallMultiplier - 1f) * Time.fixedDeltaTime;
+            }
+
             if (dash && canDash && !isWallSliding)
             {
                 StartCoroutine(DashCooldown());
@@ -271,9 +288,10 @@ public class CharacterController2D : MonoBehaviour
         if (animator != null) animator.SetBool("IsDashing", true);
         isDashing = true;
         canDash = false;
-        yield return new WaitForSeconds(0.1f);
+        m_DashCooldownEndTime = Time.time + m_DashCooldownDuration;
+        yield return new WaitForSeconds(k_DashActiveTime);
         isDashing = false;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(Mathf.Max(0f, m_DashCooldownDuration - k_DashActiveTime));
         canDash = true;
     }
     IEnumerator WaitToCheck(float time)

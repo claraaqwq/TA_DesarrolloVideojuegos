@@ -45,6 +45,8 @@ public class BossHealthBar : MonoBehaviour
 
     private void UpdateBar(int currentHealth, int maxHealth)
     {
+        Debug.Log($"[BossHealthBar] UpdateBar llamado: {currentHealth}/{maxHealth}");
+
         if (fillImage == null || maxHealth <= 0)
         {
             return;

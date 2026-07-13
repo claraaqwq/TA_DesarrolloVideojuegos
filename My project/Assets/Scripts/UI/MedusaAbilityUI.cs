@@ -6,7 +6,6 @@ public class MedusaAbilityUI : MonoBehaviour
 {
     private static MedusaAbilityUI instance;
 
-    private Text indicatorText;
     private Text messageText;
     private Coroutine messageRoutine;
 
@@ -20,27 +19,6 @@ public class MedusaAbilityUI : MonoBehaviour
 
         instance = this;
         EnsureUi();
-    }
-
-    public static void UpdateIndicator(bool unlocked, float cooldownRemaining)
-    {
-        EnsureInstance();
-
-        if (instance.indicatorText == null)
-        {
-            return;
-        }
-
-        if (!unlocked)
-        {
-            instance.indicatorText.gameObject.SetActive(false);
-            return;
-        }
-
-        instance.indicatorText.gameObject.SetActive(true);
-        instance.indicatorText.text = cooldownRemaining > 0f
-            ? $"F - Medusa ({Mathf.CeilToInt(cooldownRemaining)}s)"
-            : "F - Medusa";
     }
 
     public static void ShowUnlockMessage()
@@ -95,23 +73,30 @@ public class MedusaAbilityUI : MonoBehaviour
 
     private void EnsureUi()
     {
-        Canvas canvas = FindFirstObjectByType<Canvas>();
-        if (canvas == null)
+        if (messageText != null)
         {
             return;
         }
 
-        if (indicatorText == null)
+        Canvas canvas = GetComponentInChildren<Canvas>();
+        if (canvas == null)
         {
-            indicatorText = CreateText("MedusaIndicator", canvas.transform, new Vector2(20f, -135f), TextAnchor.MiddleLeft, 24);
-            indicatorText.gameObject.SetActive(false);
+            GameObject canvasObject = new GameObject("MedusaAbilityCanvas");
+            canvasObject.transform.SetParent(transform, false);
+
+            canvas = canvasObject.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvas.sortingOrder = 100;
+
+            CanvasScaler scaler = canvasObject.AddComponent<CanvasScaler>();
+            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            scaler.referenceResolution = new Vector2(1920f, 1080f);
+
+            canvasObject.AddComponent<GraphicRaycaster>();
         }
 
-        if (messageText == null)
-        {
-            messageText = CreateText("MedusaUnlockMessage", canvas.transform, new Vector2(0f, -145f), TextAnchor.MiddleCenter, 28);
-            messageText.gameObject.SetActive(false);
-        }
+        messageText = CreateText("MedusaUnlockMessage", canvas.transform, new Vector2(0f, -145f), TextAnchor.MiddleCenter, 48);
+        messageText.gameObject.SetActive(false);
     }
 
     private static Text CreateText(string name, Transform parent, Vector2 anchoredPosition, TextAnchor alignment, int fontSize)
@@ -130,8 +115,13 @@ public class MedusaAbilityUI : MonoBehaviour
         text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         text.fontSize = fontSize;
         text.alignment = alignment;
-        text.color = new Color(0.5f, 1f, 0.55f, 1f);
+        text.color = Color.white;
         text.raycastTarget = false;
+
+        Outline outline = textObject.AddComponent<Outline>();
+        outline.effectColor = new Color(0f, 0f, 0f, 0.85f);
+        outline.effectDistance = new Vector2(1.5f, -1.5f);
+
         return text;
     }
 }
