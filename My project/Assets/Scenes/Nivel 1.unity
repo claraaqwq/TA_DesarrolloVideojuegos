@@ -11619,7 +11619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f45fa7e66fa7554286a26fa25bc8df0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  maxHealth: 12
+  maxHealth: 100
   destroyOnDeath: 1
   knockbackDistance: 1
   knockbackDuration: 0.3
@@ -25378,6 +25378,7 @@ MonoBehaviour:
   m_GroundCheck: {fileID: 380268896}
   m_WallCheck: {fileID: 391064554}
   m_FastFallMultiplier: 4.5
+  m_EnableWallSlide: 0
   canDoubleJump: 1
   m_DashForce: 4
   m_DashCooldownDuration: 0.6

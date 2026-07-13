@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(EnemyHealth))]
 public class HadesBossController : MonoBehaviour
@@ -30,6 +31,17 @@ public class HadesBossController : MonoBehaviour
     [SerializeField] private int dangerZoneDamage = 1;
     [SerializeField] private Vector2 dangerZoneSize = new Vector2(1.4f, 2.5f);
 
+    [Header("Fases del combate")]
+    [SerializeField] private int bossMaxHealth = 28;
+    [SerializeField, Range(0.1f, 0.9f)] private float phaseTwoHealthPercent = 0.65f;
+    [SerializeField, Range(0.05f, 0.8f)] private float phaseThreeHealthPercent = 0.3f;
+    [SerializeField] private float phaseTwoCooldownMultiplier = 0.72f;
+    [SerializeField] private float phaseThreeCooldownMultiplier = 0.5f;
+    [SerializeField] private float phaseTwoProjectileSpeedMultiplier = 1.2f;
+    [SerializeField] private float phaseThreeProjectileSpeedMultiplier = 1.45f;
+    [SerializeField] private float projectileBurstDelay = 0.18f;
+    [SerializeField] private float finalPhaseSecondRayDelay = 0.22f;
+
     private EnemyHealth enemyHealth;
     private SpriteRenderer spriteRenderer;
     private Coroutine attackLoopCoroutine;
@@ -38,6 +50,7 @@ public class HadesBossController : MonoBehaviour
     private bool combatStarted;
     private bool defeated;
     private bool isPetrified;
+    private int currentPhase = 1;
     private static Sprite projectileVisualSprite;
     private static Sprite dangerZoneVisualSprite;
 
@@ -45,12 +58,20 @@ public class HadesBossController : MonoBehaviour
     {
         ConfigureCombatPhysics();
         enemyHealth = GetComponent<EnemyHealth>();
+        enemyHealth.ConfigureMaxHealth(bossMaxHealth > 0 ? bossMaxHealth : 28);
         enemyHealth.Died += HandleDefeat;
+        enemyHealth.HealthChanged += HandleHealthChanged;
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer != null ? spriteRenderer.color : Color.white;
 
         if (victoryPanel != null)
         {
+            VictoryMenuController victoryMenu = victoryPanel.GetComponent<VictoryMenuController>();
+            if (victoryMenu == null)
+            {
+                victoryPanel.AddComponent<VictoryMenuController>();
+            }
+
             victoryPanel.SetActive(false);
         }
 
@@ -108,6 +129,7 @@ public class HadesBossController : MonoBehaviour
         if (enemyHealth != null)
         {
             enemyHealth.Died -= HandleDefeat;
+            enemyHealth.HealthChanged -= HandleHealthChanged;
         }
     }
 
@@ -123,16 +145,38 @@ public class HadesBossController : MonoBehaviour
                 continue;
             }
 
-            FireProjectile();
-            yield return new WaitForSeconds(projectileCooldown);
+            int projectilePhase = currentPhase;
+            int projectileCount = projectilePhase == 1 ? 1 : projectilePhase == 2 ? 2 : 3;
+
+            for (int i = 0; i < projectileCount; i++)
+            {
+                FireProjectile(GetProjectileSpeedMultiplier(projectilePhase));
+
+                if (i < projectileCount - 1)
+                {
+                    yield return new WaitForSeconds(projectileBurstDelay);
+                }
+            }
+
+            yield return new WaitForSeconds(projectileCooldown * GetCooldownMultiplier());
 
             if (defeated || isPetrified)
             {
                 continue;
             }
 
-            SpawnDangerZone();
-            yield return new WaitForSeconds(dangerZoneCooldown);
+            int rayPhase = currentPhase;
+            SpawnDangerZone(0f, GetWarningMultiplier(rayPhase));
+
+            if (rayPhase >= 3)
+            {
+                yield return new WaitForSeconds(finalPhaseSecondRayDelay);
+                float side = Random.value < 0.5f ? -1f : 1f;
+                float offset = side * dangerZoneSize.x * 1.15f;
+                SpawnDangerZone(offset, GetWarningMultiplier(rayPhase));
+            }
+
+            yield return new WaitForSeconds(dangerZoneCooldown * GetCooldownMultiplier());
         }
 
         attackLoopCoroutine = null;
@@ -223,7 +267,7 @@ public class HadesBossController : MonoBehaviour
         attackLoopCoroutine = null;
     }
 
-    private void FireProjectile()
+    private void FireProjectile(float speedMultiplier = 1f)
     {
         if (player == null || isPetrified)
         {
@@ -251,10 +295,10 @@ public class HadesBossController : MonoBehaviour
 
         HadesProjectile hadesProjectile = projectile.AddComponent<HadesProjectile>();
         Vector2 direction = player.position - projectile.transform.position;
-        hadesProjectile.Initialize(direction, projectileSpeed, projectileDamage, projectileLifetime);
+        hadesProjectile.Initialize(direction, projectileSpeed * speedMultiplier, projectileDamage, projectileLifetime);
     }
 
-    private void SpawnDangerZone()
+    private void SpawnDangerZone(float horizontalOffset = 0f, float warningMultiplier = 1f)
     {
         if (player == null || isPetrified)
         {
@@ -262,7 +306,7 @@ public class HadesBossController : MonoBehaviour
         }
 
         GameObject zone = new GameObject("Hades_DangerZone");
-        zone.transform.position = new Vector3(player.position.x, player.position.y, 0f);
+        zone.transform.position = new Vector3(player.position.x + horizontalOffset, player.position.y, 0f);
         zone.transform.localScale = new Vector3(dangerZoneSize.x, dangerZoneSize.y, 1f);
 
         SpriteRenderer renderer = zone.AddComponent<SpriteRenderer>();
@@ -275,7 +319,47 @@ public class HadesBossController : MonoBehaviour
         collider.size = Vector2.one;
 
         HadesDangerZone dangerZone = zone.AddComponent<HadesDangerZone>();
-        dangerZone.Initialize(dangerZoneDamage, warningTime, activeTime);
+        dangerZone.Initialize(dangerZoneDamage, warningTime * warningMultiplier, activeTime);
+    }
+
+    private void HandleHealthChanged(int currentHealth, int maxHealth)
+    {
+        if (maxHealth <= 0 || defeated)
+        {
+            return;
+        }
+
+        float healthPercent = (float)currentHealth / maxHealth;
+        int nextPhase = healthPercent <= phaseThreeHealthPercent ? 3
+            : healthPercent <= phaseTwoHealthPercent ? 2
+            : 1;
+
+        if (nextPhase == currentPhase)
+        {
+            return;
+        }
+
+        currentPhase = nextPhase;
+        Debug.Log($"Hades entra en fase {currentPhase}. Vida restante: {healthPercent:P0}");
+    }
+
+    private float GetCooldownMultiplier()
+    {
+        return currentPhase >= 3 ? phaseThreeCooldownMultiplier
+            : currentPhase == 2 ? phaseTwoCooldownMultiplier
+            : 1f;
+    }
+
+    private float GetProjectileSpeedMultiplier(int phase)
+    {
+        return phase >= 3 ? phaseThreeProjectileSpeedMultiplier
+            : phase == 2 ? phaseTwoProjectileSpeedMultiplier
+            : 1f;
+    }
+
+    private static float GetWarningMultiplier(int phase)
+    {
+        return phase >= 3 ? 0.65f : phase == 2 ? 0.82f : 1f;
     }
 
     private void HandleDefeat()
@@ -378,5 +462,38 @@ public class HadesBossController : MonoBehaviour
             new Vector2(0.5f, 0.5f),
             texture.width);
         return dangerZoneVisualSprite;
+    }
+}
+
+[DisallowMultipleComponent]
+public class VictoryMenuController : MonoBehaviour
+{
+    private void Awake()
+    {
+        Button[] buttons = GetComponentsInChildren<Button>(true);
+
+        foreach (Button button in buttons)
+        {
+            if (button.name == "Btn_Reiniciar")
+            {
+                button.onClick.AddListener(RestartLevel);
+            }
+            else if (button.name == "Btn_MenuPrincipal")
+            {
+                button.onClick.AddListener(ReturnToMenu);
+            }
+        }
+    }
+
+    private void RestartLevel()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void ReturnToMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MenuPrincipal");
     }
 }

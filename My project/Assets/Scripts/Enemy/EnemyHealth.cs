@@ -23,6 +23,19 @@ public class EnemyHealth : MonoBehaviour
     public int CurrentHealth => currentHealth;
     public bool IsDead => isDead;
 
+    public void ConfigureMaxHealth(int newMaxHealth, bool refill = true)
+    {
+        maxHealth = Mathf.Max(1, newMaxHealth);
+
+        if (refill)
+        {
+            currentHealth = maxHealth;
+            isDead = false;
+        }
+
+        HealthChanged?.Invoke(currentHealth, maxHealth);
+    }
+
     private void Awake()
     {
         currentHealth = maxHealth;
