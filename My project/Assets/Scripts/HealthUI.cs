@@ -13,11 +13,20 @@ public class HealthUI : MonoBehaviour
     public Sprite fullHeart;
     public Sprite emptyHeart;
 
+    private void Awake()
+    {
+        FindPlayerHealth();
+    }
+
     private void Update()
     {
         if (playerHealth == null)
         {
-            return;
+            FindPlayerHealth();
+            if (playerHealth == null)
+            {
+                return;
+            }
         }
 
         for (int i = 0; i < hearts.Length; i++)
@@ -39,6 +48,15 @@ public class HealthUI : MonoBehaviour
                     hearts[i].enabled = false;
                 }
             }
+        }
+    }
+
+    private void FindPlayerHealth()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            playerHealth = player.GetComponent<PlayerHealth>();
         }
     }
 }

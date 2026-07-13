@@ -4477,7 +4477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e1855b3deb941949a27ad03fcd46358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthUI
-  playerHealth: {fileID: 0}
+  playerHealth: {fileID: 349252705}
   hearts:
   - {fileID: 779587596}
   - {fileID: 988832563}
