@@ -1,12 +1,16 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class MedusaAbilityUI : MonoBehaviour
 {
+    [Header("Fuente")]
+    [SerializeField] private TMP_FontAsset messageFont;
+
     private static MedusaAbilityUI instance;
 
-    private Text messageText;
+    private TMP_Text messageText;
     private Coroutine messageRoutine;
 
     private void Awake()
@@ -95,32 +99,33 @@ public class MedusaAbilityUI : MonoBehaviour
             canvasObject.AddComponent<GraphicRaycaster>();
         }
 
-        messageText = CreateText("MedusaUnlockMessage", canvas.transform, new Vector2(0f, -145f), TextAnchor.MiddleCenter, 48);
+        messageText = CreateText("MedusaUnlockMessage", canvas.transform, new Vector2(0f, 120f), 48);
         messageText.gameObject.SetActive(false);
     }
 
-    private static Text CreateText(string name, Transform parent, Vector2 anchoredPosition, TextAnchor alignment, int fontSize)
+    private TMP_Text CreateText(string name, Transform parent, Vector2 anchoredPosition, float fontSize)
     {
         GameObject textObject = new GameObject(name);
         textObject.transform.SetParent(parent, false);
 
         RectTransform rectTransform = textObject.AddComponent<RectTransform>();
-        rectTransform.anchorMin = alignment == TextAnchor.MiddleLeft ? new Vector2(0f, 1f) : new Vector2(0.5f, 1f);
-        rectTransform.anchorMax = rectTransform.anchorMin;
-        rectTransform.pivot = alignment == TextAnchor.MiddleLeft ? new Vector2(0f, 0.5f) : new Vector2(0.5f, 0.5f);
+        rectTransform.anchorMin = new Vector2(0.5f, 0f);
+        rectTransform.anchorMax = new Vector2(0.5f, 0f);
+        rectTransform.pivot = new Vector2(0.5f, 0f);
         rectTransform.anchoredPosition = anchoredPosition;
-        rectTransform.sizeDelta = new Vector2(620f, 90f);
+        rectTransform.sizeDelta = new Vector2(900f, 120f);
 
-        Text text = textObject.AddComponent<Text>();
-        text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        TextMeshProUGUI text = textObject.AddComponent<TextMeshProUGUI>();
+        if (messageFont != null)
+        {
+            text.font = messageFont;
+        }
         text.fontSize = fontSize;
-        text.alignment = alignment;
+        text.alignment = TextAlignmentOptions.Center;
         text.color = Color.white;
         text.raycastTarget = false;
-
-        Outline outline = textObject.AddComponent<Outline>();
-        outline.effectColor = new Color(0f, 0f, 0f, 0.85f);
-        outline.effectDistance = new Vector2(1.5f, -1.5f);
+        text.outlineWidth = 0.2f;
+        text.outlineColor = new Color(0f, 0f, 0f, 0.85f);
 
         return text;
     }

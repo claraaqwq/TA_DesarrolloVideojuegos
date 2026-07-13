@@ -79,6 +79,7 @@ public class HadesDangerZone : MonoBehaviour
         }
 
         hasDamagedPlayer = true;
-        player.TakeDamage(damage);
+        Vector2 knockbackDirection = player.transform.position - transform.position;
+        player.TakeDamage(damage, knockbackDirection);
     }
 }

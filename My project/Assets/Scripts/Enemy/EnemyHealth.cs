@@ -7,12 +7,17 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private int maxHealth = 12;
     [SerializeField] private bool destroyOnDeath = true;
 
+    [Header("Knockback")]
+    [SerializeField] private float knockbackDistance = 1f;
+    [SerializeField] private float knockbackDuration = 0.3f;
+
     private int currentHealth;
     private SpriteRenderer spriteRenderer;
     private bool isDead;
 
     public event Action<int, int> HealthChanged;
     public event Action Died;
+    public event Action<Vector2, float, float> KnockedBack;
 
     public int MaxHealth => maxHealth;
     public int CurrentHealth => currentHealth;
@@ -25,7 +30,7 @@ public class EnemyHealth : MonoBehaviour
         HealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector2 knockbackDirection = default)
     {
         if (damage <= 0 || isDead)
         {
@@ -39,6 +44,13 @@ public class EnemyHealth : MonoBehaviour
         {
             spriteRenderer.color = Color.red;
             Invoke(nameof(ResetColor), 0.12f);
+        }
+
+        if (knockbackDirection != Vector2.zero)
+        {
+            float horizontalSign = knockbackDirection.x >= 0f ? 1f : -1f;
+            Vector2 horizontalKnockback = new Vector2(horizontalSign, 0f);
+            KnockedBack?.Invoke(horizontalKnockback, knockbackDistance, knockbackDuration);
         }
 
         HealthChanged?.Invoke(currentHealth, maxHealth);

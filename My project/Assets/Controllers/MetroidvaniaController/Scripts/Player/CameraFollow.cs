@@ -13,6 +13,11 @@ public class CameraFollow : MonoBehaviour
     public float lookAheadDistance = 2.5f;
     public float lookAheadSpeed = 5f;
 
+    [Header("Look Down (mantener Abajo)")]
+    public float lookDownDistance = 3f;
+    public float lookDownSpeed = 4f;
+    public float lookDownDelay = 0.35f;
+
     [Header("Camera Bounds")]
     public Vector2 minPosition;
     public Vector2 maxPosition;
@@ -25,6 +30,8 @@ public class CameraFollow : MonoBehaviour
     private Transform camTransform;
     private float currentLookAheadX;
     private float lastTargetX;
+    private float currentLookDownY;
+    private float lookDownHeldTime;
 
     private void Awake()
     {
@@ -58,10 +65,21 @@ public class CameraFollow : MonoBehaviour
             );
         }
 
+        // Mirar hacia abajo al mantener presionado Abajo (estilo Hollow Knight)
+        bool holdingDown = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
+        lookDownHeldTime = holdingDown ? lookDownHeldTime + Time.deltaTime : 0f;
+
+        float targetLookDownY = lookDownHeldTime >= lookDownDelay ? -lookDownDistance : 0f;
+        currentLookDownY = Mathf.Lerp(
+            currentLookDownY,
+            targetLookDownY,
+            lookDownSpeed * Time.deltaTime
+        );
+
         // Posición deseada de la cámara
         Vector3 newPosition = new Vector3(
             Target.position.x + currentLookAheadX,
-            Target.position.y + offsetY,
+            Target.position.y + offsetY + currentLookDownY,
             -10f
         );
 
