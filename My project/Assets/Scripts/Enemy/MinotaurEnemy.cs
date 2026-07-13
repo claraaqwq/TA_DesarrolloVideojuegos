@@ -340,6 +340,11 @@ public class MinotaurEnemy : MonoBehaviour
         if (bossHealthBar != null)
         {
             bossHealthBar.SetActive(true);
+            BossHealthBar healthBar = bossHealthBar.GetComponent<BossHealthBar>();
+            if (healthBar != null)
+            {
+                healthBar.SetBoss(enemyHealth);
+            }
         }
     }
 

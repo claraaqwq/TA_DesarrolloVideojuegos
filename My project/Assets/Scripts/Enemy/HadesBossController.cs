@@ -7,6 +7,7 @@ public class HadesBossController : MonoBehaviour
 {
     private const string EffectsSortingLayer = "Default";
     private const int EffectsSortingOrder = 30;
+    private const string EnemyLayerName = "Enemy";
 
     [Header("Referencias")]
     [SerializeField] private Transform player;
@@ -42,6 +43,7 @@ public class HadesBossController : MonoBehaviour
 
     private void Awake()
     {
+        ConfigureCombatPhysics();
         enemyHealth = GetComponent<EnemyHealth>();
         enemyHealth.Died += HandleDefeat;
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -60,6 +62,30 @@ public class HadesBossController : MonoBehaviour
         if (bossArenaGate != null)
         {
             bossArenaGate.Open();
+        }
+    }
+
+    private void ConfigureCombatPhysics()
+    {
+        int enemyLayer = LayerMask.NameToLayer(EnemyLayerName);
+        if (enemyLayer >= 0)
+        {
+            gameObject.layer = enemyLayer;
+        }
+
+        Rigidbody2D body = GetComponent<Rigidbody2D>();
+        if (body != null)
+        {
+            body.bodyType = RigidbodyType2D.Kinematic;
+            body.gravityScale = 0f;
+            body.linearVelocity = Vector2.zero;
+            body.angularVelocity = 0f;
+        }
+
+        Collider2D bossCollider = GetComponent<Collider2D>();
+        if (bossCollider != null)
+        {
+            bossCollider.isTrigger = true;
         }
     }
 
@@ -124,6 +150,11 @@ public class HadesBossController : MonoBehaviour
         if (bossHealthBar != null)
         {
             bossHealthBar.SetActive(true);
+            BossHealthBar healthBar = bossHealthBar.GetComponent<BossHealthBar>();
+            if (healthBar != null)
+            {
+                healthBar.SetBoss(enemyHealth);
+            }
         }
 
         StartAttackLoop();
@@ -202,7 +233,9 @@ public class HadesBossController : MonoBehaviour
         GameObject projectile = new GameObject("Hades_Projectile");
         projectile.transform.position = new Vector3(transform.position.x, transform.position.y + 0.2f, 0f);
         projectile.transform.localScale = Vector3.one * 0.55f;
-        projectile.layer = gameObject.layer;
+        // Los proyectiles no deben pertenecer a Enemy: así el ataque cuerpo a
+        // cuerpo solo detecta a Hades y el proyectil sigue dañando al jugador.
+        projectile.layer = LayerMask.NameToLayer("Default");
 
         SpriteRenderer renderer = projectile.AddComponent<SpriteRenderer>();
         renderer.sprite = GetProjectileVisualSprite();
@@ -336,7 +369,14 @@ public class HadesBossController : MonoBehaviour
         }
 
         Texture2D texture = Texture2D.whiteTexture;
-        dangerZoneVisualSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), 1f);
+        // La textura blanca interna puede medir varios pixeles. Usar 1 PPU hacía
+        // que la sombra se viera varias veces más grande que el collider y el rayo.
+        // Con el ancho como PPU, el sprite siempre ocupa exactamente 1 x 1 unidad.
+        dangerZoneVisualSprite = Sprite.Create(
+            texture,
+            new Rect(0, 0, texture.width, texture.height),
+            new Vector2(0.5f, 0.5f),
+            texture.width);
         return dangerZoneVisualSprite;
     }
 }

@@ -11,13 +11,15 @@ public class CharacterController2D : MonoBehaviour
     [SerializeField] private Transform m_GroundCheck;
     [SerializeField] private Transform m_WallCheck;
     [SerializeField] private float m_FastFallMultiplier = 4.5f;
+    [Tooltip("Activa el wall-slide y el salto de pared. Desactivado evita que el jugador se adhiera a paredes.")]
+    [SerializeField] private bool m_EnableWallSlide = false;
 
     const float k_GroundedRadius = .2f;
     private bool m_Grounded;
     private Rigidbody2D m_Rigidbody2D;
     private bool m_FacingRight = true;
-    private Vector3 velocity = Vector3.zero;
     private float limitFallSpeed = 25f;
+    private PhysicsMaterial2D frictionlessMaterial;
 
     public bool canDoubleJump = true;
     [SerializeField] private float m_DashForce = 25f;
@@ -59,12 +61,39 @@ public class CharacterController2D : MonoBehaviour
     {
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        ConfigureFrictionlessColliders();
 
         if (OnFallEvent == null)
             OnFallEvent = new UnityEvent();
 
         if (OnLandEvent == null)
             OnLandEvent = new UnityEvent();
+    }
+
+    private void ConfigureFrictionlessColliders()
+    {
+        frictionlessMaterial = new PhysicsMaterial2D("PlayerFrictionless")
+        {
+            friction = 0f,
+            bounciness = 0f
+        };
+
+        Collider2D[] playerColliders = GetComponentsInChildren<Collider2D>();
+        foreach (Collider2D playerCollider in playerColliders)
+        {
+            if (!playerCollider.isTrigger)
+            {
+                playerCollider.sharedMaterial = frictionlessMaterial;
+            }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (frictionlessMaterial != null)
+        {
+            Destroy(frictionlessMaterial);
+        }
     }
 
     private void FixedUpdate()
@@ -95,16 +124,25 @@ public class CharacterController2D : MonoBehaviour
         if (!m_Grounded)
         {
             OnFallEvent.Invoke();
-            Collider2D[] collidersWall = Physics2D.OverlapCircleAll(m_WallCheck.position, k_GroundedRadius, m_WhatIsGround);
-            for (int i = 0; i < collidersWall.Length; i++)
+
+            if (m_EnableWallSlide)
             {
-                if (collidersWall[i].gameObject != null)
+                Collider2D[] collidersWall = Physics2D.OverlapCircleAll(m_WallCheck.position, k_GroundedRadius, m_WhatIsGround);
+                for (int i = 0; i < collidersWall.Length; i++)
                 {
-                    isDashing = false;
-                    m_IsWall = true;
+                    if (collidersWall[i].gameObject != null)
+                    {
+                        isDashing = false;
+                        m_IsWall = true;
+                    }
                 }
+                prevVelocityX = m_Rigidbody2D.linearVelocity.x;
             }
-            prevVelocityX = m_Rigidbody2D.linearVelocity.x;
+        }
+
+        if (!m_EnableWallSlide)
+        {
+            ResetWallSlideState();
         }
 
         if (limitVelOnWallJump)
@@ -161,8 +199,13 @@ public class CharacterController2D : MonoBehaviour
                 if (m_Rigidbody2D.linearVelocity.y < -limitFallSpeed)
                     m_Rigidbody2D.linearVelocity = new Vector2(m_Rigidbody2D.linearVelocity.x, -limitFallSpeed);
 
-                Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.linearVelocity.y);
-                m_Rigidbody2D.linearVelocity = Vector3.SmoothDamp(m_Rigidbody2D.linearVelocity, targetVelocity, ref velocity, m_MovementSmoothing);
+                float targetSpeed = move * 10f;
+                float responsiveness = Mathf.Lerp(140f, 45f, m_MovementSmoothing / 0.3f);
+                float newHorizontalSpeed = Mathf.MoveTowards(
+                    m_Rigidbody2D.linearVelocity.x,
+                    targetSpeed,
+                    responsiveness * Time.fixedDeltaTime);
+                m_Rigidbody2D.linearVelocity = new Vector2(newHorizontalSpeed, m_Rigidbody2D.linearVelocity.y);
 
                 if (move > 0 && !m_FacingRight && !isWallSliding)
                 {
@@ -194,7 +237,7 @@ public class CharacterController2D : MonoBehaviour
                 m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce / 1.2f));
                 if (animator != null) animator.SetBool("IsDoubleJumping", true);
             }
-            else if (m_IsWall && !m_Grounded)
+            else if (m_EnableWallSlide && m_IsWall && !m_Grounded)
             {
                 if (!oldWallSlidding && m_Rigidbody2D.linearVelocity.y < 0 || isDashing)
                 {
@@ -256,6 +299,32 @@ public class CharacterController2D : MonoBehaviour
                 m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
                 canDoubleJump = true;
             }
+        }
+    }
+
+    private void ResetWallSlideState()
+    {
+        if (!isWallSliding && !oldWallSlidding && !limitVelOnWallJump)
+        {
+            return;
+        }
+
+        isWallSliding = false;
+        oldWallSlidding = false;
+        limitVelOnWallJump = false;
+        canCheck = false;
+
+        if (animator != null)
+        {
+            animator.SetBool("IsWallSliding", false);
+        }
+
+        if (m_WallCheck != null)
+        {
+            m_WallCheck.localPosition = new Vector3(
+                Mathf.Abs(m_WallCheck.localPosition.x),
+                m_WallCheck.localPosition.y,
+                0f);
         }
     }
 
