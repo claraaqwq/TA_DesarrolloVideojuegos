@@ -5,7 +5,7 @@ public class PlayerAttack : MonoBehaviour
 {
     [Header("Ataque")]
     [SerializeField] private int damage = 4;
-    [SerializeField] private float attackRange = 0.9f;
+    [SerializeField] private float attackRange = 1.4f;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private LayerMask enemyLayer;
 
@@ -62,13 +62,21 @@ public class PlayerAttack : MonoBehaviour
             enemyLayer
         );
 
+        Debug.Log($"PlayerAttack: {hitEnemies.Length} colliders detectados en el rango de ataque.");
+
         foreach (Collider2D enemy in hitEnemies)
         {
             EnemyHealth enemyHealth = enemy.GetComponentInParent<EnemyHealth>();
 
             if (enemyHealth != null)
             {
-                enemyHealth.TakeDamage(damage);
+                Vector2 knockbackDirection = enemyHealth.transform.position - attackPoint.position;
+                Debug.Log($"PlayerAttack: golpeando a {enemyHealth.name} por {damage} de daño.");
+                enemyHealth.TakeDamage(damage, knockbackDirection);
+            }
+            else
+            {
+                Debug.LogWarning($"PlayerAttack: {enemy.name} esta en la capa de enemigos pero no tiene EnemyHealth (ni en si mismo ni en sus padres).");
             }
         }
     }

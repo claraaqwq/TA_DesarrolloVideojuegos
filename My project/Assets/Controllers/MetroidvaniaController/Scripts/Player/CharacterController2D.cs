@@ -29,6 +29,8 @@ public class CharacterController2D : MonoBehaviour
 
     public float DashCooldownDuration => m_DashCooldownDuration;
     public float DashCooldownRemaining => Mathf.Max(0f, m_DashCooldownEndTime - Time.time);
+    public bool IsGrounded => m_Grounded;
+    public bool IsDashing => isDashing;
     private bool m_IsWall = false;
     private bool isWallSliding = false;
     private bool oldWallSlidding = false;

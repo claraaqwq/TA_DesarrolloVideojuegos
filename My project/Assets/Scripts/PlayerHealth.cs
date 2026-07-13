@@ -12,6 +12,13 @@ public class PlayerHealth : MonoBehaviour
     [Header("Vidas")]
     public int maxLives = 3;
 
+    [Header("Knockback")]
+    public float knockbackForce = 6f;
+    public float knockbackLockDuration = 0.15f;
+
+    [Header("Invulnerabilidad")]
+    public float invulnerabilityDuration = 0.5f;
+
     [Header("Respawn")]
     public Transform respawnPoint;
     public float respawnDelay = 0.25f;
@@ -24,6 +31,7 @@ public class PlayerHealth : MonoBehaviour
     private CharacterController2D characterController;
     private Animator animator;
     private bool isDead;
+    private bool isInvulnerable;
     private int currentLives;
 
     public int CurrentLives => currentLives;
@@ -38,9 +46,9 @@ public class PlayerHealth : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector2 knockbackDirection = default)
     {
-        if (isDead)
+        if (isDead || isInvulnerable)
         {
             return;
         }
@@ -54,9 +62,16 @@ public class PlayerHealth : MonoBehaviour
 
         Debug.Log("Vida actual: " + currentHealth);
 
+        StartCoroutine(InvulnerabilityRoutine());
+
         if (spriteRenderer != null)
         {
             StartCoroutine(DamageFeedback());
+        }
+
+        if (knockbackDirection != Vector2.zero && currentHealth > 0)
+        {
+            StartCoroutine(KnockbackRoutine(knockbackDirection));
         }
 
         if (currentHealth <= 0)
@@ -164,6 +179,11 @@ public class PlayerHealth : MonoBehaviour
         OnGameOver?.Invoke();
     }
 
+    public void SetRespawnPoint(Transform point)
+    {
+        respawnPoint = point;
+    }
+
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -172,6 +192,33 @@ public class PlayerHealth : MonoBehaviour
     public void ReturnToMenu()
     {
         SceneManager.LoadScene("MenuPrincipal");
+    }
+
+    private IEnumerator KnockbackRoutine(Vector2 knockbackDirection)
+    {
+        if (characterController == null || rb == null)
+        {
+            yield break;
+        }
+
+        float horizontalSign = knockbackDirection.x >= 0f ? 1f : -1f;
+
+        characterController.SetMovementEnabled(false);
+        rb.linearVelocity = new Vector2(horizontalSign * knockbackForce, rb.linearVelocity.y);
+
+        yield return new WaitForSeconds(knockbackLockDuration);
+
+        if (!isDead && characterController != null)
+        {
+            characterController.SetMovementEnabled(true);
+        }
+    }
+
+    private IEnumerator InvulnerabilityRoutine()
+    {
+        isInvulnerable = true;
+        yield return new WaitForSeconds(invulnerabilityDuration);
+        isInvulnerable = false;
     }
 
     private IEnumerator DamageFeedback()

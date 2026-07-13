@@ -33,7 +33,8 @@ public class DamageZone : MonoBehaviour
     {
         while (true)
         {
-            player.TakeDamage(damage);
+            Vector2 knockbackDirection = player.transform.position - transform.position;
+            player.TakeDamage(damage, knockbackDirection);
             yield return new WaitForSeconds(damageCooldown);
         }
     }

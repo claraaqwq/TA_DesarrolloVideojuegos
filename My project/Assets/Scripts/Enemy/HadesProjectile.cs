@@ -48,7 +48,7 @@ public class HadesProjectile : MonoBehaviour
         }
 
         hasHit = true;
-        player.TakeDamage(damage);
+        player.TakeDamage(damage, rb.linearVelocity);
         Destroy(gameObject);
     }
 }
